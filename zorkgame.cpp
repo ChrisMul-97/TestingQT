@@ -14,6 +14,9 @@ void ZorkGame::createRooms()
     testRoomA->setExits(testRoomB, NULL, testRoomC, NULL);
     testRoomB->setExits(NULL, NULL, testRoomA, NULL);
     testRoomC->setExits(testRoomA, NULL, NULL, NULL);
+    rooms[0] = testRoomA;
+    rooms[1] = testRoomB;
+    rooms[2] = testRoomC;
     QPixmap pixmap;
     pixmap.load("C:/Users/Chris Mulcahy/Pictures/ProofOfConcept.png");
     testRoomA->setRoomImage(pixmap);
@@ -21,6 +24,10 @@ void ZorkGame::createRooms()
     testRoomB->setRoomImage(pixmap);
     pixmap.load("C:/Users/Chris Mulcahy/Pictures/number3.png");
     testRoomC->setRoomImage(pixmap);
+    Item *item = new Item("Working");
+    pixmap.load("C:/Users/Chris Mulcahy/Pictures/paper.png");
+    item->setItemImage(pixmap);
+    testRoomA->addItem(item);
 
     currentRoom = testRoomA;
 }
@@ -52,6 +59,12 @@ std::string ZorkGame::go(std::string direction)
     }
 }
 
+void ZorkGame::teleport()
+{
+    int random = std::rand() % 3;
+    currentRoom = rooms[random];
+}
+
 QString ZorkGame::getCurrentRoomDescription()
 {
     if (currentRoom == NULL)
@@ -69,3 +82,5 @@ Room *ZorkGame::getCurrentRoom()
 {
     return currentRoom;
 }
+
+

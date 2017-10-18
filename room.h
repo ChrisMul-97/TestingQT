@@ -15,7 +15,7 @@ class Room
 private:
     std::string p_description;
     std::map<std::string, Room*> p_exits;
-    std::vector<Item> p_items;
+    std::vector<Item*> p_items;
     QPixmap roomImage;
 public:
     Room(std::string description);
@@ -27,6 +27,7 @@ public:
     Room* nextRoom(std::string direction);
     void setRoomImage(QPixmap image);
     QPixmap getRoomImage();
+    std::vector<Item*> getItems();
 };
 
 #endif // ROOM_H

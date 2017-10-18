@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <QPixmap>
 
 class Item
 {
@@ -12,6 +13,7 @@ private:
     int p_weightGrams;
     float p_value;
     bool p_weaponCheck;
+    QPixmap p_itemImage;
 public:
     Item(std::string description);
     Item (std::string description, int inWeight, float inValue);
@@ -23,6 +25,8 @@ public:
     void setValue(float value);
     int getWeaponCheck();
     void setWeaponCheck(int weaponCheck);
+    void setItemImage(QPixmap pixmap);
+    QPixmap getItemImage();
 
 };
 

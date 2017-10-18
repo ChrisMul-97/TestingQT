@@ -31,8 +31,10 @@ SOURCES += \
     room.cpp \
     clickablelabel.cpp \
     command.cpp \
+    parser.cpp \
     commandwords.cpp \
-    parser.cpp
+    commandwordsagain.cpp \
+    qgraphicsobjectgameitem.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,8 +43,10 @@ HEADERS += \
     room.h \
     clickablelabel.h \
     command.h \
+    parser.h \
     commandwords.h \
-    parser.h
+    commandwordsagain.h \
+    qgraphicsobjectgameitem.h
 
 FORMS += \
         mainwindow.ui

@@ -24,7 +24,17 @@ void Item::setValue(float inValue)
     if (inValue > 9999 || inValue < 0)
        std::cout << "value invalid, must be 0<value<9999" ;
     else
-       p_value = inValue;
+        p_value = inValue;
+}
+
+void Item::setItemImage(QPixmap pixmap)
+{
+    this->p_itemImage = pixmap;
+}
+
+QPixmap Item::getItemImage()
+{
+    return this->p_itemImage;
 }
 
 /**void Item::setWeaponCheck(int isWeapon)
