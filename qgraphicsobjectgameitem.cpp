@@ -18,14 +18,14 @@ void QGraphicsObjectGameItem::paint(QPainter *painter, const QStyleOptionGraphic
     painter->drawPixmap(0, 0, p_item->getItemImage().scaled(50, 50));
 
     // set the pen to draw debug rect
-    painter->setPen(QColor(255, 0, 0, 127));
+    //painter->setPen(QColor(255, 0, 0, 127));
 
     // for debug purposes, show the bounding rect (clickable area)
-    painter->drawRect(boundingRect());
+    //painter->drawRect(boundingRect());
 }
 
 void QGraphicsObjectGameItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    //hurah
+    Q_UNUSED(event);
     emit clicked();
 }

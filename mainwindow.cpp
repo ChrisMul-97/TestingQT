@@ -70,6 +70,13 @@ void MainWindow::setUpGUI()
 
     ui->graphicsView->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
     ui->graphicsView->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
+
+    /*
+    for (int i = 0; i < sizeof(item)/sizeof())
+    {
+
+    }
+    */
 }
 
 void MainWindow::connectSignalsToSlots()
@@ -138,9 +145,9 @@ void MainWindow::printRoomImage()
         for (int i = 0; i < itemsToDisplay.size(); i++)
         {
 
-            this->item = new QGraphicsObjectGameItem(itemsToDisplay[i]);
-            scene->addItem(item);
-            connect(item, SIGNAL(clicked()), this, SLOT(itemClicked()));
+            this->item[i] = new QGraphicsObjectGameItem(itemsToDisplay[i]);
+            scene->addItem(item[i]);
+            connect(item[i], SIGNAL(clicked()), this, SLOT(itemClicked()));
         }
     }
     else
@@ -154,11 +161,12 @@ void MainWindow::removeItemsFromScene()
         if (background != nullptr)
             scene->removeItem(background);
         background = nullptr;
-        //really this should call a for loop that iterates through a vector of items
-        //this will do for now
-        if (item != nullptr)
-            scene->removeItem(item);
-        item = nullptr;
+        for (int i = 0; i < sizeof(item)/sizeof(item[0]); i++)
+        {
+            if (item[i] != nullptr)
+                scene->removeItem(item[i]);
+            item[i] = nullptr;
+        }
     }
 }
 

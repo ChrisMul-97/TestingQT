@@ -30,7 +30,7 @@ private:
     QGraphicsView *view;
     QGraphicsScene *scene;
     QGraphicsPixmapItem *background;
-    QGraphicsObjectGameItem *item;
+    QGraphicsObjectGameItem *item[5];
     void setUpGUI();
     void connectSignalsToSlots();
     void printRoomInfo();

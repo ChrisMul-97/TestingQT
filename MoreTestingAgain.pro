@@ -35,7 +35,9 @@ SOURCES += \
     commandwords.cpp \
     commandwordsagain.cpp \
     qgraphicsobjectgameitem.cpp \
-    player.cpp
+    player.cpp \
+    keyitem.cpp \
+    itemdoor.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,7 +50,10 @@ HEADERS += \
     commandwords.h \
     commandwordsagain.h \
     qgraphicsobjectgameitem.h \
-    player.h
+    player.h \
+    keyitem.h \
+    itemdoor.h \
+    todo.h
 
 FORMS += \
         mainwindow.ui

@@ -24,7 +24,8 @@ public:
     std::string getDescription();
     void setExits(Room *west, Room *north, Room *east, Room *south);
     void addItem(Item *item);
-    Room* nextRoom(std::string direction);
+    void deleteItem(Item *item);
+    Room *nextRoom(std::string direction);
     void setRoomImage(QPixmap image);
     QPixmap getRoomImage();
     std::vector<Item*> getItems();
