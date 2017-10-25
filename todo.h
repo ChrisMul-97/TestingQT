@@ -10,4 +10,4 @@
 //-Removing items when adding them to the players inventory -- Mark
 //-Displaying players inventory -- Chris
 
-//If you try to change rooms it will currently crash -- working on a fix, I swear
+//fixed the bug where it crashes after you enter a new room

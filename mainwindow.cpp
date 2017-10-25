@@ -70,13 +70,6 @@ void MainWindow::setUpGUI()
 
     ui->graphicsView->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
     ui->graphicsView->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
-
-    /*
-    for (int i = 0; i < sizeof(item)/sizeof())
-    {
-
-    }
-    */
 }
 
 void MainWindow::connectSignalsToSlots()
@@ -161,7 +154,7 @@ void MainWindow::removeItemsFromScene()
         if (background != nullptr)
             scene->removeItem(background);
         background = nullptr;
-        for (int i = 0; i < sizeof(item)/sizeof(item[0]); i++)
+        for (int i = 0; i < sizeof(item)/sizeof(*item[0]); i++)
         {
             if (item[i] != nullptr)
                 scene->removeItem(item[i]);
