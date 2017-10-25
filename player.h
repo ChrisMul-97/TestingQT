@@ -6,6 +6,11 @@ class Player
 {
 public:
     Player();
+    void selectedItem(Item *item);
+private:
+    ArrayList<Item*> inventory;
+    void currentItem(Item *currentItem);
+    Item *currentItem;
 };
 
 #endif // PLAYER_H
