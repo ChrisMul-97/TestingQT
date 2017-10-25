@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->textBrowser->append(p_zorkgame.getWelcomeText());
+    //setUpFunctions
     setUpGUI();
     connectSignalsToSlots();
     printRoomInfo();
@@ -21,7 +22,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setUpGUI()
 {
-    QImage image("C:/Users/Chris Mulcahy/Documents/build-MoreTestingAgain-Desktop_Qt_5_9_1_MSVC2015_64bit-Debug/debug/arrow.png");
+    QImage image("C:/Users/Chris Mulcahy/Pictures/arrow.png");
     QPoint center = image.rect().center();
 
     QPixmap pixmap = QPixmap::fromImage(image);
@@ -62,6 +63,13 @@ void MainWindow::setUpGUI()
     ui->labelDown->setScaledContents( true );
 
     ui->labelDown->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+
+    view = ui->graphicsView;
+    scene = new QGraphicsScene();
+    view->setScene(scene);
+
+    ui->graphicsView->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
+    ui->graphicsView->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
 }
 
 void MainWindow::connectSignalsToSlots()
@@ -70,7 +78,6 @@ void MainWindow::connectSignalsToSlots()
     connect(ui->labelUp, SIGNAL(clicked()), this, SLOT(clickedUp()));
     connect(ui->labelLeft, SIGNAL(clicked()), this, SLOT(clickedLeft()));
     connect(ui->labelDown, SIGNAL(clicked()), this, SLOT(clickedDown()));
-    //connect(ui->labelRoomImage, SIGNAL(mousePos()), this, SLOT(mouseCurrentPos()));
 }
 
 void MainWindow::clickedRight()
@@ -117,16 +124,43 @@ void MainWindow::printRoomImage()
 {
     if (!(p_zorkgame.getCurrentRoom()->getRoomImage().isNull()))
     {
+        if (firstRoomEntered)
+            removeItemsFromScene();
+
+        int width = ui->graphicsView->width();
+        int height = ui->graphicsView->height();
+
         QPixmap pixmap = p_zorkgame.getCurrentRoom()->getRoomImage();
-        ui->labelRoomImage->setPixmap(pixmap);
-        //ui->labelRoomImage->setPixmap(pixmap.scaled(width, height, Qt::KeepAspectRatio));
+        background = new QGraphicsPixmapItem(pixmap.scaled(width, height, Qt::KeepAspectRatio));
+        scene->addItem(background);
+        firstRoomEntered = true;
+        std::vector<Item*> itemsToDisplay = p_zorkgame.getCurrentRoom()->getItems();
+        for (int i = 0; i < itemsToDisplay.size(); i++)
+        {
 
-        ui->labelRoomImage->setScaledContents( true );
-
-        ui->labelRoomImage->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+            this->item[i] = new QGraphicsObjectGameItem(itemsToDisplay[i]);
+            scene->addItem(item[i]);
+            connect(item[i], SIGNAL(clicked()), this, SLOT(itemClicked()));
+        }
     }
     else
         ui->textBrowser->append("You can't see anything in here!");
+}
+
+void MainWindow::removeItemsFromScene()
+{
+    if (scene != NULL)
+    {
+        if (background != nullptr)
+            scene->removeItem(background);
+        background = nullptr;
+        for (int i = 0; i < sizeof(item)/sizeof(*item[0]); i++)
+        {
+            if (item[i] != nullptr)
+                scene->removeItem(item[i]);
+            item[i] = nullptr;
+        }
+    }
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -135,14 +169,35 @@ void MainWindow::on_pushButton_clicked()
     std::string inputArray[2];
     std::stringstream stream(input);
     int i = 0;
-    while (stream.good() && i < 2){
+    while (stream.good() && i < 2)
+    {
         stream >> inputArray[i];
         i++;
     }
-    if (inputArray[0].compare("go") == 0)
-    {
-        QString newString = QString::fromStdString(p_zorkgame.go(inputArray[1]));
-        ui->textBrowser->append(newString);
-        printRoomImage();
-    }
+    //if (commands->isCommand(inputArray[i]))
+    //{
+        if (inputArray[0].compare("go") == 0)
+        {
+            QString newString = QString::fromStdString(p_zorkgame.go(inputArray[1]));
+            ui->textBrowser->append(newString);
+            printRoomImage();
+        }
+        //if (inputArray[0].compare("info") == 0)
+        //{
+        //    ui->textBrowser->append("Valid commands are: ");
+        //    ui->textBrowser->append(commands->showAll());
+        //}
+    //}
+}
+
+void MainWindow::on_pushButtonTeleport_clicked()
+{
+    p_zorkgame.teleport();
+    ui->textBrowser->append(p_zorkgame.getCurrentRoomDescription());
+    printRoomImage();
+}
+
+void MainWindow::itemClicked()
+{
+    ui->textBrowser->append("Item was clicked");
 }

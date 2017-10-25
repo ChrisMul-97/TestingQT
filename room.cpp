@@ -38,7 +38,7 @@ void Room::setExits(Room *west, Room *north, Room *east, Room *south)
 
 void Room::addItem(Item *item)
 {
-    p_items.push_back(*item);
+    p_items.push_back(item);
 }
 
 Room* Room::nextRoom(std::string direction) {
@@ -57,4 +57,9 @@ void Room::setRoomImage(QPixmap image)
 QPixmap Room::getRoomImage()
 {
     return roomImage;
+}
+
+std::vector<Item*> Room::getItems()
+{
+    return p_items;
 }

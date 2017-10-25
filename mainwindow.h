@@ -6,7 +6,11 @@
 #include <QImage>
 #include <iostream>
 #include <sstream>
+#include <QGraphicsView>
+#include <vector>
 #include "zorkgame.h"
+#include "commandwords.h"
+#include "qgraphicsobjectgameitem.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,10 +27,17 @@ public:
 private:
     Ui::MainWindow *ui;
     ZorkGame p_zorkgame;
+    QGraphicsView *view;
+    QGraphicsScene *scene;
+    QGraphicsPixmapItem *background;
+    QGraphicsObjectGameItem *item[5];
     void setUpGUI();
     void connectSignalsToSlots();
     void printRoomInfo();
     void printRoomImage();
+    void removeItemsFromScene();
+    bool firstRoomEntered = false;
+    //CommandWords *commands;
 
 private slots:
     void clickedRight();
@@ -35,6 +46,8 @@ private slots:
     void clickedDown();
     //void mouseCurrentPos();
     void on_pushButton_clicked();
+    void on_pushButtonTeleport_clicked();
+    void itemClicked();
 };
 
 #endif // MAINWINDOW_H
