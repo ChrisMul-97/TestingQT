@@ -2,14 +2,16 @@
 #define ITEMDOOR_H
 
 #include <iostream>
-#include "keyitem.h"
+#include "item.h"
 
 class ItemDoor : public Item
 {
 public:
-    ItemDoor(std::string description, ItemKey key);
+    ItemDoor(std::string description, Item *key);
 private:
-    ItemKey key;
+    Item key;
+protected:
+    void checkInteraction(Item *item);
 };
 
 #endif // ITEMDOOR_H

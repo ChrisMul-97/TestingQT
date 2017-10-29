@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "item.h"
 
 class Player
 {
@@ -9,9 +10,9 @@ public:
     void selectedItem(Item *item);
     void addItem(Item *item);
 private:
-    ArrayList<Item*> inventory;
+    std::vector<Item*> inventory;
     void currentItem(Item *currentItem);
-    Item *currentItem;
+    Item *item;
 };
 
 #endif // PLAYER_H
