@@ -70,6 +70,8 @@ void MainWindow::setUpGUI()
 
     ui->graphicsView->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
     ui->graphicsView->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
+
+    this->listViewItems = ui->listWidgetItems;
 }
 
 void MainWindow::connectSignalsToSlots()
@@ -160,6 +162,25 @@ void MainWindow::removeItemsFromScene()
                 scene->removeItem(item[i]);
             item[i] = nullptr;
         }
+    }
+}
+
+void MainWindow::showPlayerInventory()
+{
+    Player player = p_zorkgame.getPlayer();
+    std::string items[5];
+    std::string itemsFromPlayer = player.getItemNames();
+    int i = 0;
+    stringstream streamIn(itemsFromPlayer);
+    while (streamIn.good() && i < 5){
+        streamIn >> items[i];
+        i++;
+    }
+    QString qStringArrayItems[5];
+    for (int i = 0; i < 5; i++)
+    {
+        qStringArrayItems[i] = QString::fromStdString(items[i]);
+        this->listViewItems->addItem(qStringArrayItems[i]);
     }
 }
 

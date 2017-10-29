@@ -8,6 +8,7 @@
 #include <sstream>
 #include <QGraphicsView>
 #include <vector>
+#include <QListWidget>
 #include "zorkgame.h"
 #include "commandwords.h"
 #include "qgraphicsobjectgameitem.h"
@@ -31,20 +32,20 @@ private:
     QGraphicsScene *scene;
     QGraphicsPixmapItem *background;
     QGraphicsObjectGameItem *item[5];
+    QListWidget *listViewItems;
     void setUpGUI();
     void connectSignalsToSlots();
     void printRoomInfo();
     void printRoomImage();
     void removeItemsFromScene();
     bool firstRoomEntered = false;
-    //CommandWords *commands;
+    void showPlayerInventory();
 
 private slots:
     void clickedRight();
     void clickedLeft();
     void clickedUp();
     void clickedDown();
-    //void mouseCurrentPos();
     void on_pushButton_clicked();
     void on_pushButtonTeleport_clicked();
     void itemClicked();

@@ -2,6 +2,7 @@
 #define ZORKGAME_H
 
 #include "room.h"
+#include "player.h"
 #include <list>
 #include <QString>
 
@@ -16,9 +17,11 @@ public:
     Room *getCurrentRoom();
     std::string go(std::string direction);
     void teleport();
+    Player getPlayer();
 private:
     Room *currentRoom;
     Room *rooms[3];
+    Player player;
     //ArrayList<Room> rooms = new ArrayList<Room>();
     void createRooms();
 };

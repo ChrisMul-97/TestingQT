@@ -83,4 +83,9 @@ Room *ZorkGame::getCurrentRoom()
     return currentRoom;
 }
 
+Player ZorkGame::getPlayer()
+{
+    return player;
+}
+
 

@@ -128,12 +128,12 @@
      <string>Teleport</string>
     </property>
    </widget>
-   <widget class="QListView" name="listViewItems">
+   <widget class="QListWidget" name="listWidgetItems">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>270</y>
-      <width>311</width>
+      <width>341</width>
       <height>71</height>
      </rect>
     </property>
