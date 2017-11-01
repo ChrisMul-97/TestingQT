@@ -172,23 +172,27 @@ void MainWindow::removeItemsFromScene()
 void MainWindow::showPlayerInventory()
 {
     Player player = p_zorkgame.getPlayer();
-    std::string items[5];
+    std::vector<std::string> items;
     std::string itemsFromPlayer = player.getItemNames();
     int i = 0;
     stringstream streamIn(itemsFromPlayer);
+    std::string input;
     while (streamIn.good() && i < 5){
-        streamIn >> items[i];
+        streamIn >> input;
+        items.push_back(input);
         i++;
     }
-    QString qStringArrayItems[5];
-    for (int i = 0; i < 5; i++)
+    std::vector<QString> qStringArrayItems;
+    for (int i = 0; i < items.size(); i++)
     {
-        if (!(items[i].empty()))
+        if (!(items.at(i).empty()))
         {
-            qStringArrayItems[i] = QString::fromStdString(items[i]);
-            this->listViewItems->addItem(qStringArrayItems[i]);
+            qStringArrayItems.push_back(QString::fromStdString(items.at(i)));
+            this->listViewItems->addItem(qStringArrayItems.back());
         }
     }
+    connect(this->listViewItems, SIGNAL(itemClicked(QListWidgetItem*)),
+            this, SLOT(onInventoryItemClicked(QListWidgetItem*)));
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -231,14 +235,25 @@ void MainWindow::itemClicked()
     {
         if (item[i] != nullptr)
         {
-            if (item[i]->getClickedCheck() == true)
+            if (item[i]->getClickedCheck() == true && item[i]->getP_item()->getIsClickable())
             {
-                p_zorkgame.addPlayerItem(item[i]->getP_item());
+                p_zorkgame.addPlayerItem(*item[i]->getP_item());
                 scene->removeItem(item[i]);
                 p_zorkgame.getCurrentRoom()->deleteItem(item[i]->getP_item());
-                item[i] = nullptr;
+            }
+            else
+            {
+                /*
+                if (p_zorkgame.getPlayer().getCurrentItem() != NULL)
+                    p_zorkgame.getPlayer().getCurrentItem()->checkInteraction(item[i]->getP_item());
+                */
             }
         }
     }
     showPlayerInventory();
+}
+
+void MainWindow::onInventoryItemClicked(QListWidgetItem *item)
+{
+    p_zorkgame.getPlayer().currentItem(item->text().toLocal8Bit().constData());
 }

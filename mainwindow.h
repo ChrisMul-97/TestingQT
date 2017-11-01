@@ -9,6 +9,7 @@
 #include <QGraphicsView>
 #include <vector>
 #include <QListWidget>
+#include <QListWidgetItem>
 #include "zorkgame.h"
 #include "commandwords.h"
 #include "qgraphicsobjectgameitem.h"
@@ -49,6 +50,7 @@ private slots:
     void on_pushButton_clicked();
     void on_pushButtonTeleport_clicked();
     void itemClicked();
+    void onInventoryItemClicked(QListWidgetItem*);
 };
 
 #endif // MAINWINDOW_H

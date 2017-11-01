@@ -1,5 +1,25 @@
 #include "item.h"
 
+bool Item::getIsClickable() const
+{
+    return isClickable;
+}
+
+void Item::setIsClickable(bool value)
+{
+    isClickable = value;
+}
+
+std::string Item::getP_description() const
+{
+    return p_description;
+}
+
+void Item::setP_description(const std::string &value)
+{
+    p_description = value;
+}
+
 Item::Item()
 {
     this->x = 0;

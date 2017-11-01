@@ -8,5 +8,5 @@ ItemKey::ItemKey(std::string description, Item *item)
 
 void ItemKey::checkInteraction(Item *item)
 {
-
+    //if ()
 }

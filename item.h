@@ -12,6 +12,7 @@ private:
     std::string p_longDescription;
     QPixmap p_itemImage;
     int x, y, sizeX, sizeY;
+    bool isClickable = true;
 public:
     Item();
     Item(std::string description);
@@ -28,6 +29,10 @@ public:
     void setSizeX(int value);
     int getSizeY() const;
     void setSizeY(int value);
+    bool getIsClickable() const;
+    void setIsClickable(bool value);
+    std::string getP_description() const;
+    void setP_description(const std::string &value);
 };
 
 #endif // ITEM_H

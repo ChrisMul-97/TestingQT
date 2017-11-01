@@ -91,7 +91,7 @@ Player ZorkGame::getPlayer()
     return player;
 }
 
-void ZorkGame::addPlayerItem(Item *item)
+void ZorkGame::addPlayerItem(Item item)
 {
     player.addItem(item);
 }

@@ -9,6 +9,7 @@ class ItemDoor : public Item
 {
 public:
     ItemDoor(std::string description, Room *room);
+    void createRoom(Room *room, std::string exitDirection);
 private:
     Room *room;
 protected:
