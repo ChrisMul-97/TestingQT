@@ -1,9 +1,9 @@
 #include "itemdoor.h"
 
-ItemDoor::ItemDoor(std::string description, Item *key)
+ItemDoor::ItemDoor(std::string description, Room *newRoom)
  : Item(description)
 {
-    this->key = *key;
+    this->room = newRoom;
 }
 
 

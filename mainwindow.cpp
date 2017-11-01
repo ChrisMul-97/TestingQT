@@ -9,6 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->textBrowser->append(p_zorkgame.getWelcomeText());
     //setUpFunctions
+    for (int i = 0; i < 5;i++)
+    {
+        item[i] = nullptr;
+    }
     setUpGUI();
     connectSignalsToSlots();
     printRoomInfo();
@@ -156,7 +160,7 @@ void MainWindow::removeItemsFromScene()
         if (background != nullptr)
             scene->removeItem(background);
         background = nullptr;
-        for (int i = 0; i < sizeof(item)/sizeof(*item[0]); i++)
+        for (int i = 0; i < 5; i++)
         {
             if (item[i] != nullptr)
                 scene->removeItem(item[i]);
@@ -179,8 +183,11 @@ void MainWindow::showPlayerInventory()
     QString qStringArrayItems[5];
     for (int i = 0; i < 5; i++)
     {
-        qStringArrayItems[i] = QString::fromStdString(items[i]);
-        this->listViewItems->addItem(qStringArrayItems[i]);
+        if (!(items[i].empty()))
+        {
+            qStringArrayItems[i] = QString::fromStdString(items[i]);
+            this->listViewItems->addItem(qStringArrayItems[i]);
+        }
     }
 }
 
@@ -220,5 +227,18 @@ void MainWindow::on_pushButtonTeleport_clicked()
 
 void MainWindow::itemClicked()
 {
-    ui->textBrowser->append("Item was clicked");
+    for (int i = 0; i < 5; i++)
+    {
+        if (item[i] != nullptr)
+        {
+            if (item[i]->getClickedCheck() == true)
+            {
+                p_zorkgame.addPlayerItem(item[i]->getP_item());
+                scene->removeItem(item[i]);
+                p_zorkgame.getCurrentRoom()->deleteItem(item[i]->getP_item());
+                item[i] = nullptr;
+            }
+        }
+    }
+    showPlayerInventory();
 }

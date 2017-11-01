@@ -3,6 +3,7 @@
 ZorkGame::ZorkGame()
 {
     createRooms();
+    player;
 }
 
 void ZorkGame::createRooms()
@@ -24,7 +25,9 @@ void ZorkGame::createRooms()
     testRoomB->setRoomImage(pixmap);
     pixmap.load("C:/Users/Chris Mulcahy/Pictures/number3.png");
     testRoomC->setRoomImage(pixmap);
-    Item *item = new Item("Working");
+    Item *item = new Item("Note");
+    item->setX(95);
+    item->setY(95);
     pixmap.load("C:/Users/Chris Mulcahy/Pictures/paper.png");
     item->setItemImage(pixmap);
     testRoomA->addItem(item);
@@ -87,5 +90,12 @@ Player ZorkGame::getPlayer()
 {
     return player;
 }
+
+void ZorkGame::addPlayerItem(Item *item)
+{
+    player.addItem(item);
+}
+
+
 
 

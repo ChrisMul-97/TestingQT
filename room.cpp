@@ -41,6 +41,17 @@ void Room::addItem(Item *item)
     p_items.push_back(item);
 }
 
+void Room::deleteItem(Item *item)
+{
+    for (int i = 0; i < p_items.size(); i++)
+    {
+        if (p_items[i] == item)
+        {
+            p_items.erase(p_items.begin() + i);
+        }
+    }
+}
+
 Room* Room::nextRoom(std::string direction) {
     std::map<std::string, Room*>::iterator next = p_exits.find(direction); //returns an iterator for the "pair"
     if (next == p_exits.end())

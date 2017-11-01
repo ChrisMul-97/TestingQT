@@ -3,13 +3,14 @@
 
 #include <iostream>
 #include "item.h"
+#include "room.h"
 
 class ItemDoor : public Item
 {
 public:
-    ItemDoor(std::string description, Item *key);
+    ItemDoor(std::string description, Room *room);
 private:
-    Item key;
+    Room *room;
 protected:
     void checkInteraction(Item *item);
 };

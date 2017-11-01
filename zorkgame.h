@@ -18,6 +18,7 @@ public:
     std::string go(std::string direction);
     void teleport();
     Player getPlayer();
+    void addPlayerItem(Item *item);
 private:
     Room *currentRoom;
     Room *rooms[3];

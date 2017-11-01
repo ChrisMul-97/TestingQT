@@ -8,13 +8,13 @@ class Player
 {
 public:
     Player();
+    void currentItem(Item *currentItem);
     void selectedItem(Item *item);
     void addItem(Item *item);
     std::vector<Item *> getItems();
     std::string getItemNames();
 private:
     std::vector<Item*> inventory;
-    void currentItem(Item *currentItem);
     Item *item;
 };
 
