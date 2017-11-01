@@ -9,6 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->textBrowser->append(p_zorkgame.getWelcomeText());
     //setUpFunctions
+    for (int i = 0; i < 5;i++)
+    {
+        item[i] = NULL;
+    }
     setUpGUI();
     connectSignalsToSlots();
     printRoomInfo();
@@ -22,7 +26,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setUpGUI()
 {
-    QImage image("C:/Users/Chris Mulcahy/Pictures/arrow.png");
+    QImage image("C:/Users/Mark/Pictures/Saved Pictures/I-dont-want-to-live-on-this-planet-anymore");
     QPoint center = image.rect().center();
 
     QPixmap pixmap = QPixmap::fromImage(image);
@@ -70,6 +74,8 @@ void MainWindow::setUpGUI()
 
     ui->graphicsView->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
     ui->graphicsView->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
+
+    this->listViewItems = ui->listWidgetItems;
 }
 
 void MainWindow::connectSignalsToSlots()
@@ -151,14 +157,36 @@ void MainWindow::removeItemsFromScene()
 {
     if (scene != NULL)
     {
-        if (background != nullptr)
+        if (background != NULL)
             scene->removeItem(background);
-        background = nullptr;
-        for (int i = 0; i < sizeof(item)/sizeof(*item[0]); i++)
+        background = NULL;
+        for (int i = 0; i < 5; i++)
         {
-            if (item[i] != nullptr)
+            if (item[i] != NULL)
                 scene->removeItem(item[i]);
-            item[i] = nullptr;
+            item[i] = NULL;
+        }
+    }
+}
+
+void MainWindow::showPlayerInventory()
+{
+    Player player = p_zorkgame.getPlayer();
+    std::string items[5];
+    std::string itemsFromPlayer = player.getItemNames();
+    int i = 0;
+    stringstream streamIn(itemsFromPlayer);
+    while (streamIn.good() && i < 5){
+        streamIn >> items[i];
+        i++;
+    }
+    QString qStringArrayItems[5];
+    for (int i = 0; i < 5; i++)
+    {
+        if (!(items[i].empty()))
+        {
+            qStringArrayItems[i] = QString::fromStdString(items[i]);
+            this->listViewItems->addItem(qStringArrayItems[i]);
         }
     }
 }
@@ -174,6 +202,8 @@ void MainWindow::on_pushButton_clicked()
         stream >> inputArray[i];
         i++;
     }
+
+    ui->textEdit->clear();
     //if (commands->isCommand(inputArray[i]))
     //{
         if (inputArray[0].compare("go") == 0)
@@ -182,11 +212,24 @@ void MainWindow::on_pushButton_clicked()
             ui->textBrowser->append(newString);
             printRoomImage();
         }
-        //if (inputArray[0].compare("info") == 0)
-        //{
-        //    ui->textBrowser->append("Valid commands are: ");
-        //    ui->textBrowser->append(commands->showAll());
-        //}
+        if (inputArray[0].compare("info") == 0)
+        {
+            ui->textBrowser->append("Valid commands are: \n go    info    teleport");
+            //ui->textBrowser->append(Command->showAll());
+        }
+        if (inputArray[0].compare("teleport") == 0)
+        {
+            p_zorkgame.teleport();
+            ui->textBrowser->append(p_zorkgame.getCurrentRoomDescription());
+            printRoomImage();
+        }
+        if (inputArray[0].compare("unlock") == 0)
+        {
+            p_zorkgame.unlockRoom();
+            ui->textBrowser->append(p_zorkgame.getCurrentRoomDescription());
+            printRoomImage();
+        }
+
     //}
 }
 
@@ -199,5 +242,24 @@ void MainWindow::on_pushButtonTeleport_clicked()
 
 void MainWindow::itemClicked()
 {
-    ui->textBrowser->append("Item was clicked");
+    for (int i = 0; i < 5; i++)
+    {
+        if (item[i] != NULL)
+        {
+            if (item[i]->getClickedCheck() == true)
+            {
+                p_zorkgame.addPlayerItem(item[i]->getP_item());
+                scene->removeItem(item[i]);
+                p_zorkgame.getCurrentRoom()->deleteItem(item[i]->getP_item());
+                item[i] = NULL;
+            }
+        }
+    }
+    showPlayerInventory();
+}
+
+void MainWindow::appendText(QString newString)
+{
+
+    ui->textBrowser->append(newString);
 }
