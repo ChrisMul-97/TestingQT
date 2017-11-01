@@ -19,7 +19,7 @@ void ZorkGame::createRooms()
     rooms[1] = testRoomB;
     rooms[2] = testRoomC;
     QPixmap pixmap;
-    pixmap.load("C:/Users/Chris Mulcahy/Pictures/ProofOfConcept.png");
+    pixmap.load("C:/Users/Mark/Pictures/Saved Pictures/I-dont-want-to-live-on-this-planet-anymore");
     testRoomA->setRoomImage(pixmap);
     pixmap.load("C:/Users/Chris Mulcahy/Pictures/number2.png");
     testRoomB->setRoomImage(pixmap);
@@ -28,7 +28,7 @@ void ZorkGame::createRooms()
     Item *item = new Item("Note");
     item->setX(95);
     item->setY(95);
-    pixmap.load("C:/Users/Chris Mulcahy/Pictures/paper.png");
+    pixmap.load("C:/Users/Mark/Pictures/Saved Pictures/Jeb");
     item->setItemImage(pixmap);
     testRoomA->addItem(item);
 

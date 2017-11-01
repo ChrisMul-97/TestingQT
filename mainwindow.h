@@ -12,6 +12,7 @@
 #include "zorkgame.h"
 #include "commandwords.h"
 #include "qgraphicsobjectgameitem.h"
+#include "command.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +24,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void appendText(QString newString);
     ~MainWindow();
 
 private:

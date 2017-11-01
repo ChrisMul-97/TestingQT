@@ -3,6 +3,7 @@
 
 #include <string>
 #include "item.h"
+#include "mainwindow.h"
 
 class ItemKey : public Item
 {
