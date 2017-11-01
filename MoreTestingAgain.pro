@@ -33,7 +33,6 @@ SOURCES += \
     command.cpp \
     parser.cpp \
     commandwords.cpp \
-    commandwordsagain.cpp \
     qgraphicsobjectgameitem.cpp \
     player.cpp \
     itemdoor.cpp \
@@ -48,7 +47,6 @@ HEADERS += \
     command.h \
     parser.h \
     commandwords.h \
-    commandwordsagain.h \
     qgraphicsobjectgameitem.h \
     player.h \
     itemdoor.h \
