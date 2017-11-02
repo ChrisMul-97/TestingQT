@@ -128,6 +128,15 @@ void MainWindow::printRoomInfo()
 
 void MainWindow::printRoomImage()
 {
+    //stops the same item appearing in other rooms
+    for (int i = 0; i < 5; i++)
+    {
+        if (item[i] != NULL)
+            scene->removeItem(item[i]);
+        item[i] = NULL;
+    }
+    /**********************************/
+
     if (!(p_zorkgame.getCurrentRoom()->getRoomImage().isNull()))
     {
         if (firstRoomEntered)
