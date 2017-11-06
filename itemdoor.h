@@ -9,11 +9,20 @@ class ItemDoor : public Item
 {
 public:
     ItemDoor(std::string description, Room *room);
-    void createRoom(Room *room, std::string exitDirection);
+    void roomDetails(Room *room, std::string direction);
+    Room *getAdjacentRoom() const;
+    void setAdjacentRoom(Room *value);
+    std::string getDirection() const;
+    void setDirection(const std::string &value);
+    Room *getRoom() const;
+    void setRoom(Room *value);
+
 private:
     Room *room;
+    Room *adjacentRoom;
+    std::string direction;
 protected:
-    void checkInteraction(Item *item);
+    bool checkInteraction(Item *item);
 };
 
 #endif // ITEMDOOR_H

@@ -23,6 +23,7 @@ public:
     void setDescription(std::string description);
     std::string getDescription();
     void setExits(Room *west, Room *north, Room *east, Room *south);
+    void setExit(Room *room, std::string direction);
     void addItem(Item *item);
     void deleteItem(Item *item);
     Room *nextRoom(std::string direction);

@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         item[i] = nullptr;
     }
+    gameOverScreen.load("C:/Users/Chris Mulcahy/Pictures/GAMEOVER.png");
     setUpGUI();
     connectSignalsToSlots();
     printRoomInfo();
@@ -114,13 +115,6 @@ void MainWindow::clickedDown()
     printRoomImage();
 }
 
-/*
-void MainWindow::mouseCurrentPos()
-{
-    ui->textBrowser->append(QString("X= %1, Y = %2").arg(ui->labelRoomImage->x()).arg(ui->labelRoomImage->y()));
-}
-*/
-
 void MainWindow::printRoomInfo()
 {
     ui->textBrowser->append(p_zorkgame.getCurrentRoomDescription());
@@ -148,6 +142,12 @@ void MainWindow::printRoomImage()
             scene->addItem(item[i]);
             connect(item[i], SIGNAL(clicked()), this, SLOT(itemClicked()));
         }
+        questionMark = new Item("Question Mark");
+        pixmap.load("C:/Users/Chris Mulcahy/Pictures/Camera Roll/Question_Mark.png");
+        questionMark->setItemImage(pixmap);
+        questionMarkSymbol = new QGraphicsObjectGameItem(questionMark);
+        scene->addItem(questionMarkSymbol);
+        connect(questionMarkSymbol, SIGNAL(clicked()), this, SLOT(onQuestionMarkClicked()));
     }
     else
         ui->textBrowser->append("You can't see anything in here!");
@@ -166,67 +166,26 @@ void MainWindow::removeItemsFromScene()
                 scene->removeItem(item[i]);
             item[i] = nullptr;
         }
+        if (questionMarkSymbol != nullptr)
+            scene->removeItem(questionMarkSymbol);
     }
 }
 
 void MainWindow::showPlayerInventory()
 {
-    Player player = p_zorkgame.getPlayer();
-    std::vector<std::string> items;
-    std::string itemsFromPlayer = player.getItemNames();
-    int i = 0;
-    stringstream streamIn(itemsFromPlayer);
-    std::string input;
-    while (streamIn.good() && i < 5){
-        streamIn >> input;
-        items.push_back(input);
-        i++;
-    }
+    Player *player = p_zorkgame.getPlayer();
+    std::vector<Item*> itemsFromPlayer = player->getItems();
+    std::vector<std::string> itemsForDisplay;
     std::vector<QString> qStringArrayItems;
-    for (int i = 0; i < items.size(); i++)
+    this->listViewItems->clear();
+    for (int i = 0; i < itemsFromPlayer.size(); i++)
     {
-        if (!(items.at(i).empty()))
-        {
-            qStringArrayItems.push_back(QString::fromStdString(items.at(i)));
-            this->listViewItems->addItem(qStringArrayItems.back());
-        }
+        itemsForDisplay.push_back(itemsFromPlayer[i]->getP_description());
+        qStringArrayItems.push_back(QString::fromStdString(itemsForDisplay[i]));
+        this->listViewItems->addItem(qStringArrayItems[i]);
     }
     connect(this->listViewItems, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(onInventoryItemClicked(QListWidgetItem*)));
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-    std::string input = ui->textEdit->toPlainText().toLocal8Bit().constData();
-    std::string inputArray[2];
-    std::stringstream stream(input);
-    int i = 0;
-    while (stream.good() && i < 2)
-    {
-        stream >> inputArray[i];
-        i++;
-    }
-    //if (commands->isCommand(inputArray[i]))
-    //{
-        if (inputArray[0].compare("go") == 0)
-        {
-            QString newString = QString::fromStdString(p_zorkgame.go(inputArray[1]));
-            ui->textBrowser->append(newString);
-            printRoomImage();
-        }
-        //if (inputArray[0].compare("info") == 0)
-        //{
-        //    ui->textBrowser->append("Valid commands are: ");
-        //    ui->textBrowser->append(commands->showAll());
-        //}
-    //}
-}
-
-void MainWindow::on_pushButtonTeleport_clicked()
-{
-    p_zorkgame.teleport();
-    ui->textBrowser->append(p_zorkgame.getCurrentRoomDescription());
-    printRoomImage();
 }
 
 void MainWindow::itemClicked()
@@ -235,25 +194,53 @@ void MainWindow::itemClicked()
     {
         if (item[i] != nullptr)
         {
-            if (item[i]->getClickedCheck() == true && item[i]->getP_item()->getIsClickable())
+            if (item[i]->getClickedCheck() == true && item[i]->getP_item()->getIsTakeable())
             {
-                p_zorkgame.addPlayerItem(*item[i]->getP_item());
+                p_zorkgame.addPlayerItem(item[i]->getP_item());
+                item[i]->setClickedCheck(false);
                 scene->removeItem(item[i]);
                 p_zorkgame.getCurrentRoom()->deleteItem(item[i]->getP_item());
+                item[i] = nullptr;
+                showPlayerInventory();
+                /*
+                if (item[i]->getP_item() == p_zorkgame.getGameOverItem())
+                {
+                    removeItemsFromScene();
+                    std::cout << "Game Over" << std::endl;
+                    QGraphicsPixmapItem *gameOver = new QGraphicsPixmapItem(gameOverScreen);
+                    this->scene->addItem(gameOver);
+                }
+                */
             }
             else
             {
-                /*
-                if (p_zorkgame.getPlayer().getCurrentItem() != NULL)
-                    p_zorkgame.getPlayer().getCurrentItem()->checkInteraction(item[i]->getP_item());
-                */
+                if (p_zorkgame.getPlayer()->getCurrentItem() != NULL)
+                {
+                    if (p_zorkgame.getPlayer()->getCurrentItem()->checkInteraction(item[i]->getP_item()))
+                    {
+                        if (ItemDoor* door = dynamic_cast<ItemDoor*>(item[i]->getP_item()))
+                        {
+                            Room *newRoom = door->getRoom();
+                            std::string newDirection = door->getDirection();
+                            p_zorkgame.addNewRoom(newRoom, door->getAdjacentRoom() ,newDirection);
+                            ui->textBrowser->append(QString::fromStdString("New room unlocked: " + newRoom->getDescription() + " to the " + newDirection + " of " + door->getRoom()->getDescription()));
+                        }
+                    }
+                }
             }
         }
     }
-    showPlayerInventory();
 }
 
 void MainWindow::onInventoryItemClicked(QListWidgetItem *item)
 {
-    p_zorkgame.getPlayer().currentItem(item->text().toLocal8Bit().constData());
+    p_zorkgame.getPlayer()->currentItem(item->text().toLocal8Bit().constData());
+}
+
+void MainWindow::onQuestionMarkClicked()
+{
+    if (p_zorkgame.getPlayer()->getCurrentItem() != NULL)
+        ui->textBrowser->append(QString::fromStdString(p_zorkgame.getPlayer()->getCurrentItem()->getLongDescription()));
+    else
+        ui->textBrowser->append("You have no current item selected!");
 }

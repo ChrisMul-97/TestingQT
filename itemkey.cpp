@@ -3,10 +3,12 @@
 ItemKey::ItemKey(std::string description, Item *item)
     : Item(description)
 {
-    door = *item;
+    door = item;
 }
 
-void ItemKey::checkInteraction(Item *item)
+bool ItemKey::checkInteraction(Item *item)
 {
-    //if ()
+    if (item == door)
+        return true;
+    return false;
 }

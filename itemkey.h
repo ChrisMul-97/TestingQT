@@ -9,9 +9,9 @@ class ItemKey : public Item
 public:
     ItemKey(std::string description, Item *door);
 private:
-    Item door;
+    Item *door;
 protected:
-    void checkInteraction(Item *item);
+    bool checkInteraction(Item *item);
 
 };
 

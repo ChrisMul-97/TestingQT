@@ -3,6 +3,8 @@
 
 #include "room.h"
 #include "player.h"
+#include "itemdoor.h"
+#include "itemkey.h"
 #include <list>
 #include <QString>
 
@@ -17,12 +19,15 @@ public:
     Room *getCurrentRoom();
     std::string go(std::string direction);
     void teleport();
-    Player getPlayer();
-    void addPlayerItem(Item item);
+    Player *getPlayer();
+    void addPlayerItem(Item *item);
+    Item *getGameOverItem();
+    void addNewRoom(Room *newRoom, Room *oldRoom, std::string direction);
 private:
     Room *currentRoom;
-    Room *rooms[3];
-    Player player;
+    std::vector<Room*> rooms;
+    Item *gameOverItem;
+    Player *player;
     //ArrayList<Room> rooms = new ArrayList<Room>();
     void createRooms();
 };

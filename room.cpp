@@ -36,6 +36,11 @@ void Room::setExits(Room *west, Room *north, Room *east, Room *south)
     }
 }
 
+void Room::setExit(Room *room, std::string direction)
+{
+    p_exits[direction] = room;
+}
+
 void Room::addItem(Item *item)
 {
     p_items.push_back(item);
@@ -52,7 +57,7 @@ void Room::deleteItem(Item *item)
     }
 }
 
-Room* Room::nextRoom(std::string direction) {
+Room *Room::nextRoom(std::string direction) {
     std::map<std::string, Room*>::iterator next = p_exits.find(direction); //returns an iterator for the "pair"
     if (next == p_exits.end())
         return NULL; // if exits.end() was returned, there's no room in that direction.

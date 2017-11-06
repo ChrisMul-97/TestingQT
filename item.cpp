@@ -1,13 +1,13 @@
 #include "item.h"
 
-bool Item::getIsClickable() const
+bool Item::getIsTakeable() const
 {
-    return isClickable;
+    return isTakeable;
 }
 
-void Item::setIsClickable(bool value)
+void Item::setIsTakeable(bool value)
 {
-    isClickable = value;
+    isTakeable = value;
 }
 
 std::string Item::getP_description() const
@@ -41,10 +41,11 @@ QPixmap Item::getItemImage()
     return this->p_itemImage;
 }
 
-void Item::checkInteraction(Item *item)
+bool Item::checkInteraction(Item *item)
 {
     Q_UNUSED(item);
     //just virtual
+    return false;
 }
 
 std::string Item::getShortDescription()
@@ -54,7 +55,12 @@ std::string Item::getShortDescription()
 
 std::string Item::getLongDescription()
 {
-    return " item(s), " + p_description + ".\n";
+    return p_longDescription;
+}
+
+void Item::setLongDescription(std::string longDesc)
+{
+    this->p_longDescription = longDesc;
 }
 
 void Item::setItemImage(QPixmap pixmap)
