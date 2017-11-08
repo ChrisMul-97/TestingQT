@@ -1,13 +1,13 @@
 #include "qgraphicsobjectgameitem.h"
 
-QGraphicsObjectGameItem::QGraphicsObjectGameItem(Item *item)
+QGraphicsObjectGameItem::QGraphicsObjectGameItem(GameObject *gameObject)
 {
-    this->p_item = item;
+    this->object = gameObject;
 }
 
 QRectF QGraphicsObjectGameItem::boundingRect() const
 {
-    return QRectF(p_item->getX(), p_item->getY() , p_item->getSizeX(), p_item->getSizeY());
+    return QRectF(object->getX(), object->getY() , object->getSizeX(), object->getSizeY());
 }
 
 void QGraphicsObjectGameItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -15,7 +15,7 @@ void QGraphicsObjectGameItem::paint(QPainter *painter, const QStyleOptionGraphic
     Q_UNUSED(option);
     Q_UNUSED(widget);
     // draw the player
-    painter->drawPixmap(p_item->getX(), p_item->getY(), p_item->getItemImage().scaled(p_item->getSizeX(), p_item->getSizeY()));
+    painter->drawPixmap(object->getX(), object->getY(), object->getItemImage().scaled(object->getSizeX(), object->getSizeY()));
 
     // set the pen to draw debug rect
     //painter->setPen(QColor(255, 0, 0, 127));
@@ -41,12 +41,14 @@ void QGraphicsObjectGameItem::setClickedCheck(bool clickedCheck)
     this->clickedCheck = clickedCheck;
 }
 
-Item *QGraphicsObjectGameItem::getP_item()
+GameObject *QGraphicsObjectGameItem::getGameObject()
 {
-    return p_item;
+    return object;
 }
 
-void QGraphicsObjectGameItem::setP_item(Item *item)
+void QGraphicsObjectGameItem::setGameObject(GameObject *gameObject)
 {
-    p_item = item;
+    this->object = gameObject;
 }
+
+

@@ -7,11 +7,11 @@
 class ItemKey : public Item
 {
 public:
-    ItemKey(std::string description, Item *door);
+    ItemKey(std::string description, GameObject *door);
 private:
-    Item *door;
+    GameObject *door;
 protected:
-    bool checkInteraction(Item *item);
+    bool checkInteraction(const GameObject *item) override;
 
 };
 

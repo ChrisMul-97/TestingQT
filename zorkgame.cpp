@@ -22,7 +22,7 @@ void ZorkGame::createRooms()
     testRoomB->setRoomImage(pixmap);
     pixmap.load("C:/Users/Chris Mulcahy/Pictures/room3.png");
     testRoomC->setRoomImage(pixmap);
-    Item *note = new Item("Note");
+    ItemNote *note = new ItemNote("Note");
     note->setX(150);
     note->setY(145);
     note->setSizeX(35);
@@ -35,7 +35,7 @@ void ZorkGame::createRooms()
     Room *testRoomD = new Room("The Great Outdoors");
     pixmap.load("C:/Users/Chris Mulcahy/Pictures/outside.png");
     testRoomD->setRoomImage(pixmap);
-    ItemDoor *door = new ItemDoor("Door", testRoomD);
+    ObjectDoor *door = new ObjectDoor(testRoomD);
     door->roomDetails(testRoomA, "north");
     pixmap.load("C:/Users/Chris Mulcahy/Pictures/Camera Roll/door.png");
     door->setItemImage(pixmap);
@@ -51,7 +51,7 @@ void ZorkGame::createRooms()
     testRoomD->setExit(finalRoom,"north");
 
     //room 2 items
-    Item *secondNote = new Item("AnotherNote");
+    ItemNote *secondNote = new ItemNote("AnotherNote");
     secondNote->setX(150);
     secondNote->setY(200);
     secondNote->setSizeX(35);
@@ -69,7 +69,7 @@ void ZorkGame::createRooms()
     key->setSizeX(25);
     key->setSizeY(25);
 
-    Item *moreNote = new Item("Note #231");
+    ItemNote *moreNote = new ItemNote("Note #231");
     moreNote->setX(100);
     moreNote->setY(100);
     moreNote->setSizeX(35);
@@ -78,7 +78,7 @@ void ZorkGame::createRooms()
     pixmap.load("C:/Users/Chris Mulcahy/Pictures/note2.png");
     moreNote->setItemImage(pixmap);
 
-    Item *theoryNote = new Item("Note #78");
+    ItemNote *theoryNote = new ItemNote("Note #78");
     theoryNote->setX(200);
     theoryNote->setY(150);
     theoryNote->setSizeX(35);
@@ -86,7 +86,7 @@ void ZorkGame::createRooms()
     theoryNote->setLongDescription("It reads: 'Hi, it's me Socrates, the inventor of jokes.\nAnd I'm here to tell you losing your memory is no joke.'");
     theoryNote->setItemImage(pixmap);
 
-    Item *moreTheoryNote = new Item("Note #HELP");
+    ItemNote *moreTheoryNote = new ItemNote("Note #HELP");
     moreTheoryNote->setX(75);
     moreTheoryNote->setY(112);
     moreTheoryNote->setSizeX(35);
@@ -94,7 +94,7 @@ void ZorkGame::createRooms()
     moreTheoryNote->setLongDescription("It reads: 'Thinking about getting into humming... hmmm'");
     moreTheoryNote->setItemImage(pixmap);
 
-    Item *finalNote = new Item("Note #32");
+    ItemNote *finalNote = new ItemNote("Note #32");
     finalNote->setX(180);
     finalNote->setY(140);
     finalNote->setSizeX(35);
@@ -103,7 +103,7 @@ void ZorkGame::createRooms()
     finalNote->setItemImage(pixmap);
 
     //outside items
-    Item *earthsLastDemand = new Item("Final Letter");
+    ItemNote *earthsLastDemand = new ItemNote("Final Letter");
     earthsLastDemand->setX(180);
     earthsLastDemand->setY(220);
     earthsLastDemand->setSizeX(35);
@@ -113,7 +113,7 @@ void ZorkGame::createRooms()
     earthsLastDemand->setItemImage(pixmap);
 
     //Final Frontier items
-    Item *earthItself = new Item("Earth; What was always yours.");
+    ItemNote *earthItself = new ItemNote("Earth; What was always yours.");
     earthItself->setX(-20);
     earthItself->setY(200);
     earthItself->setSizeX(200);
@@ -126,16 +126,16 @@ void ZorkGame::createRooms()
 
 
     //final setup
-    testRoomA->addItem(note);
-    testRoomA->addItem(door);
-    testRoomB->addItem(secondNote);
-    testRoomC->addItem(key);
-    testRoomC->addItem(moreNote);
-    testRoomC->addItem(theoryNote);
-    testRoomC->addItem(moreTheoryNote);
-    testRoomC->addItem(finalNote);
-    testRoomD->addItem(earthsLastDemand);
-    finalRoom->addItem(earthItself);
+    testRoomA->addGameObjct(note);
+    testRoomA->addGameObjct(door);
+    testRoomB->addGameObjct(secondNote);
+    testRoomC->addGameObjct(key);
+    testRoomC->addGameObjct(moreNote);
+    testRoomC->addGameObjct(theoryNote);
+    testRoomC->addGameObjct(moreTheoryNote);
+    testRoomC->addGameObjct(finalNote);
+    testRoomD->addGameObjct(earthsLastDemand);
+    finalRoom->addGameObjct(earthItself);
     gameOverItem = earthItself;
     currentRoom = testRoomA;
 }

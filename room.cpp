@@ -2,17 +2,17 @@
 
 Room::Room(std::string description)
 {
-    p_description = description;
+    description = description;
 }
 
 void Room::setDescription(std::string description)
 {
-    p_description = description;
+    description = description;
 }
 
 std::string Room::getDescription()
 {
-    return p_description;
+    return description;
 }
 
 
@@ -20,46 +20,48 @@ void Room::setExits(Room *west, Room *north, Room *east, Room *south)
 {
     if (west != NULL)
     {
-        p_exits["west"] = west;
+        exits["west"] = west;
     }
     if (north != NULL)
     {
-        p_exits["north"] = north;
+        exits["north"] = north;
     }
     if (east != NULL)
     {
-        p_exits["east"] = east;
+        exits["east"] = east;
     }
     if (south != NULL)
     {
-        p_exits["south"] = south;
+        exits["south"] = south;
     }
 }
 
 void Room::setExit(Room *room, std::string direction)
 {
-    p_exits[direction] = room;
+    exits[direction] = room;
 }
 
-void Room::addItem(Item *item)
+void Room::addGameObjct(GameObject *gameObject)
 {
-    p_items.push_back(item);
+    gameObjects.push_back(gameObject);
 }
 
-void Room::deleteItem(Item *item)
+void Room::deleteGameObject(GameObject *gameObject)
 {
-    for (int i = 0; i < p_items.size(); i++)
+    for (int i = 0; i < gameObjects.size(); i++)
     {
-        if (p_items[i] == item)
+        if (gameObjects[i] == gameObject)
         {
-            p_items.erase(p_items.begin() + i);
+            gameObjects.erase(gameObjects.begin() + i);
         }
     }
 }
 
+
+
 Room *Room::nextRoom(std::string direction) {
-    std::map<std::string, Room*>::iterator next = p_exits.find(direction); //returns an iterator for the "pair"
-    if (next == p_exits.end())
+    std::map<std::string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
+    if (next == exits.end())
         return NULL; // if exits.end() was returned, there's no room in that direction.
     return next->second; // If there is a room, remove the "second" (Room*)
                 // part of the "pair" (<string, Room*>) and return it.
@@ -75,7 +77,9 @@ QPixmap Room::getRoomImage()
     return roomImage;
 }
 
-std::vector<Item*> Room::getItems()
+std::vector<GameObject *> Room::getGameObjects()
 {
-    return p_items;
+    return gameObjects;
 }
+
+

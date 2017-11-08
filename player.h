@@ -8,8 +8,8 @@ class Player
 {
 public:
     Player();
+    ~Player();
     void currentItem(std::string currentItem);
-    void selectedItem(Item *item);
     void addItem(Item *item);
     Item *getCurrentItem();
     std::vector<Item*> getItems();

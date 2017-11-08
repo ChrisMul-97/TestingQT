@@ -3,8 +3,9 @@
 
 #include "room.h"
 #include "player.h"
-#include "itemdoor.h"
 #include "itemkey.h"
+#include "itemnote.h"
+#include "objectdoor.h"
 #include <list>
 #include <QString>
 

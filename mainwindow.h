@@ -13,6 +13,7 @@
 #include <QGraphicsPixmapItem>
 #include "zorkgame.h"
 #include "commandwords.h"
+#include "objectquestionmark.h"
 #include "qgraphicsobjectgameitem.h"
 
 namespace Ui {
@@ -29,12 +30,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    ZorkGame p_zorkgame;
+    ZorkGame zorkgame;
     QGraphicsView *view;
     QGraphicsScene *scene;
     QGraphicsPixmapItem *background;
     QGraphicsObjectGameItem *item[5];
-    Item *questionMark;
+    GameObject *questionMark;
     QGraphicsObjectGameItem *questionMarkSymbol;
     QListWidget *listViewItems;
     void setUpGUI();

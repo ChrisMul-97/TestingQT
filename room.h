@@ -3,6 +3,7 @@
 
 #include "room.h"
 #include "item.h"
+#include "gameobject.h"
 #include <string>
 #include <map>
 #include <vector>
@@ -13,9 +14,9 @@ class Room
 {
 
 private:
-    std::string p_description;
-    std::map<std::string, Room*> p_exits;
-    std::vector<Item*> p_items;
+    std::string description;
+    std::map<std::string, Room*> exits;
+    std::vector<GameObject*> gameObjects;
     QPixmap roomImage;
 public:
     Room(std::string description);
@@ -24,12 +25,12 @@ public:
     std::string getDescription();
     void setExits(Room *west, Room *north, Room *east, Room *south);
     void setExit(Room *room, std::string direction);
-    void addItem(Item *item);
-    void deleteItem(Item *item);
+    void addGameObjct(GameObject *gameObject);
+    void deleteGameObject(GameObject *gameObject);
     Room *nextRoom(std::string direction);
     void setRoomImage(QPixmap image);
     QPixmap getRoomImage();
-    std::vector<Item*> getItems();
+    std::vector<GameObject *> getGameObjects();
 };
 
 #endif // ROOM_H

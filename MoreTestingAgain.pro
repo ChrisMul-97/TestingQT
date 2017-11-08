@@ -35,8 +35,11 @@ SOURCES += \
     commandwords.cpp \
     qgraphicsobjectgameitem.cpp \
     player.cpp \
-    itemdoor.cpp \
-    itemkey.cpp
+    itemkey.cpp \
+    gameobject.cpp \
+    objectdoor.cpp \
+    itemnote.cpp \
+    objectquestionmark.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,9 +52,12 @@ HEADERS += \
     commandwords.h \
     qgraphicsobjectgameitem.h \
     player.h \
-    itemdoor.h \
     todo.h \
-    itemkey.h
+    itemkey.h \
+    gameobject.h \
+    objectdoor.h \
+    itemnote.h \
+    objectquestionmark.h
 
 FORMS += \
         mainwindow.ui

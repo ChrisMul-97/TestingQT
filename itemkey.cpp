@@ -1,12 +1,12 @@
 #include "itemkey.h"
 
-ItemKey::ItemKey(std::string description, Item *item)
+ItemKey::ItemKey(std::string description, GameObject *item)
     : Item(description)
 {
     door = item;
 }
 
-bool ItemKey::checkInteraction(Item *item)
+bool ItemKey::checkInteraction(const GameObject *item)
 {
     if (item == door)
         return true;

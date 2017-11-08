@@ -1,110 +1,36 @@
 #include "item.h"
 
-bool Item::getIsTakeable() const
+
+Item::Item(std::string description)
+    :GameObject()
 {
-    return isTakeable;
+    this->description = description;
 }
 
-void Item::setIsTakeable(bool value)
+std::string Item::getDescription() const
 {
-    isTakeable = value;
+    return description;
 }
 
-std::string Item::getP_description() const
+void Item::setDescription(const std::string &value)
 {
-    return p_description;
+    description = value;
 }
 
-void Item::setP_description(const std::string &value)
+std::string Item::getLongDescription() const
 {
-    p_description = value;
+    return longDescription;
 }
 
-Item::Item()
+void Item::setLongDescription(const std::string &value)
 {
-    this->x = 0;
-    this->y = 0;
-    this->sizeX = 50;
-    this->sizeY = 50;
+    longDescription = value;
 }
 
-Item::Item(std::string inDescription) {
-    p_description = inDescription;
-    this->x = 0;
-    this->y = 0;
-    this->sizeX = 50;
-    this->sizeY = 50;
+bool Item::checkInherited()
+{
+    return true;
 }
 
-QPixmap Item::getItemImage()
-{
-    return this->p_itemImage;
-}
 
-bool Item::checkInteraction(Item *item)
-{
-    Q_UNUSED(item);
-    //just virtual
-    return false;
-}
-
-std::string Item::getShortDescription()
-{
-    return p_description;
-}
-
-std::string Item::getLongDescription()
-{
-    return p_longDescription;
-}
-
-void Item::setLongDescription(std::string longDesc)
-{
-    this->p_longDescription = longDesc;
-}
-
-void Item::setItemImage(QPixmap pixmap)
-{
-    this->p_itemImage = pixmap;
-}
-
-int Item::getX() const
-{
-    return x;
-}
-
-void Item::setX(int value)
-{
-    x = value;
-}
-
-int Item::getY() const
-{
-    return y;
-}
-
-void Item::setY(int value)
-{
-    y = value;
-}
-
-int Item::getSizeX() const
-{
-    return sizeX;
-}
-
-void Item::setSizeX(int value)
-{
-    sizeX = value;
-}
-
-int Item::getSizeY() const
-{
-    return sizeY;
-}
-
-void Item::setSizeY(int value)
-{
-    sizeY = value;
-}
 
