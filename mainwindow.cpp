@@ -27,7 +27,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setUpGUI()
 {
-    QImage image("C:/Users/Chris Mulcahy/Pictures/arrow.png");
+    QImage image("Images/arrow.png");
     QPoint center = image.rect().center();
 
     QPixmap pixmap = QPixmap::fromImage(image);
@@ -148,7 +148,7 @@ void MainWindow::printRoomImage()
         questionMark->setY(0);
         questionMark->setSizeY(50);
         questionMark->setSizeX(50);
-        pixmap.load("C:/Users/Chris Mulcahy/Pictures/Camera Roll/Question_Mark.png");
+        pixmap.load("Images/Question_Mark.png");
         questionMark->setItemImage(pixmap);
         questionMarkSymbol = new QGraphicsObjectGameItem(questionMark);
         scene->addItem(questionMarkSymbol);

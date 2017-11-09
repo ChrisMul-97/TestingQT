@@ -14,6 +14,7 @@ class ZorkGame
 {
 public:
     ZorkGame();
+    ~ZorkGame();
     QString getHelpText();
     QString getWelcomeText();
     QString getCurrentRoomDescription();

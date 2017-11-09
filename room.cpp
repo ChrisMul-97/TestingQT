@@ -2,12 +2,25 @@
 
 Room::Room(std::string description)
 {
-    description = description;
+    this->description = description;
+}
+
+Room::~Room()
+{
+    for (int i = 0; i < gameObjects.size(); i++)
+    {
+        delete gameObjects[i];
+    }
+    std::map<std::string, Room*>::iterator it;
+    for (it = exits.begin(); it != exits.end(); it++)
+    {
+        delete it->second;
+    }
 }
 
 void Room::setDescription(std::string description)
 {
-    description = description;
+    this->description = description;
 }
 
 std::string Room::getDescription()
