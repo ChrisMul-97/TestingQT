@@ -30,14 +30,10 @@ SOURCES += \
     item.cpp \
     room.cpp \
     clickablelabel.cpp \
-    command.cpp \
-    parser.cpp \
-    commandwords.cpp \
-    commandwordsagain.cpp \
     qgraphicsobjectgameitem.cpp \
     player.cpp \
-    keyitem.cpp \
-    itemdoor.cpp
+    itemdoor.cpp \
+    itemkey.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,15 +41,11 @@ HEADERS += \
     item.h \
     room.h \
     clickablelabel.h \
-    command.h \
-    parser.h \
-    commandwords.h \
-    commandwordsagain.h \
     qgraphicsobjectgameitem.h \
     player.h \
-    keyitem.h \
     itemdoor.h \
-    todo.h
+    todo.h \
+    itemkey.h
 
 FORMS += \
         mainwindow.ui

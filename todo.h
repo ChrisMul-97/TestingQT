@@ -11,3 +11,13 @@
 //-Displaying players inventory -- Chris
 
 //fixed the bug where it crashes after you enter a new room
+
+
+/*
+inline functions -- ME
+destructors
+gameover screen-- ME
+references
+operator overloading -- ME
+change images
+/*

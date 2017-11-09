@@ -2,6 +2,7 @@
 
 ClickableLabel::ClickableLabel(QWidget* parent, Qt::WindowFlags f)
     : QLabel(parent) {
+    Q_UNUSED(f);
     setMouseTracking(true);
 }
 
@@ -18,6 +19,7 @@ double ClickableLabel::getY()
 }
 
 void ClickableLabel::mousePressEvent(QMouseEvent* event) {
+    Q_UNUSED(event);
     emit clicked();
 
 }

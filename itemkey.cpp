@@ -1,26 +1,14 @@
 #include "itemkey.h"
 
-
 ItemKey::ItemKey(std::string description, Item *item)
     : Item(description)
 {
-    door = *item;
+    door = item;
 }
 
-void ItemKey::checkInteraction(Item *item)
+bool ItemKey::checkInteraction(Item *item)
 {
-    QString newString = NULL;
-
-    if(&door == item)
-    {
-        //call method in itemdoor
-
-        newString = "The door opens";
-    }
-    else
-    {
-        newString = "This isn't the right key";
-    }
-
-    //print
+    if (item == door)
+        return true;
+    return false;
 }

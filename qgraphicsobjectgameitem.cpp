@@ -7,7 +7,7 @@ QGraphicsObjectGameItem::QGraphicsObjectGameItem(Item *item)
 
 QRectF QGraphicsObjectGameItem::boundingRect() const
 {
-    return QRectF(0, 15, 50, 50);
+    return QRectF(p_item->getX(), p_item->getY() , p_item->getSizeX(), p_item->getSizeY());
 }
 
 void QGraphicsObjectGameItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -15,17 +15,38 @@ void QGraphicsObjectGameItem::paint(QPainter *painter, const QStyleOptionGraphic
     Q_UNUSED(option);
     Q_UNUSED(widget);
     // draw the player
-    painter->drawPixmap(0, 0, p_item->getItemImage().scaled(50, 50));
+    painter->drawPixmap(p_item->getX(), p_item->getY(), p_item->getItemImage().scaled(p_item->getSizeX(), p_item->getSizeY()));
 
     // set the pen to draw debug rect
-    //painter->setPen(QColor(255, 0, 0, 127));
+    painter->setPen(QColor(255, 0, 0, 127));
 
     // for debug purposes, show the bounding rect (clickable area)
-    //painter->drawRect(boundingRect());
+    painter->drawRect(boundingRect());
 }
 
 void QGraphicsObjectGameItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
+    clickedCheck = true;
     emit clicked();
+}
+
+bool QGraphicsObjectGameItem::getClickedCheck()
+{
+    return clickedCheck;
+}
+
+void QGraphicsObjectGameItem::setClickedCheck(bool clickedCheck)
+{
+    this->clickedCheck = clickedCheck;
+}
+
+Item *QGraphicsObjectGameItem::getP_item()
+{
+    return p_item;
+}
+
+void QGraphicsObjectGameItem::setP_item(Item *item)
+{
+    p_item = item;
 }
