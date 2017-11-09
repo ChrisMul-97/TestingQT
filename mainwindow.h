@@ -12,7 +12,6 @@
 #include <QListWidgetItem>
 #include <QGraphicsPixmapItem>
 #include "zorkgame.h"
-#include "commandwords.h"
 #include "objectquestionmark.h"
 #include "qgraphicsobjectgameitem.h"
 
