@@ -46,7 +46,6 @@ HEADERS += \
     clickablelabel.h \
     qgraphicsobjectgameitem.h \
     player.h \
-    todo.h \
     itemkey.h \
     gameobject.h \
     objectdoor.h \

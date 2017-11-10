@@ -7,7 +7,7 @@ Player::Player()
 
 Player::~Player()
 {
-    //delete this->item;
+    delete this->item;
 }
 
 void Player::addItem(Item *item)
@@ -38,6 +38,17 @@ std::string Player::getItemNames()
         itemNames = " " + inventory[i]->getDescription();
     }
     return itemNames;
+}
+
+void Player::removeItem(Item *item)
+{
+    for (int i = 0; i < inventory.size(); i++)
+    {
+        if (inventory[i] == item)
+        {
+            inventory.erase(inventory.begin() + i);
+        }
+    }
 }
 
 void Player::currentItem(std::string currentItem)

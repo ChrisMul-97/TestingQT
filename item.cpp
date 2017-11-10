@@ -27,6 +27,23 @@ void Item::setLongDescription(const std::string &value)
     longDescription = value;
 }
 
+void Item::setIsGameOverItem(bool value)
+{
+    this->isGameOverItem = value;
+}
+
+bool Item::getIsGameOverItem() const
+{
+    return isGameOverItem;
+}
+
+bool Item::operator==(Item &item)
+{
+    if (this->getDescription().compare(item.getDescription()) == 0)
+        return true;
+    return false;
+}
+
 bool Item::checkInherited()
 {
     return true;

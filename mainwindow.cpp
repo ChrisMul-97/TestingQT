@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         item[i] = nullptr;
     }
-    gameOverScreen.load("C:/Users/Chris Mulcahy/Pictures/GAMEOVER.png");
+    gameOverScreen.load("../MoreTestingAgain/Images/GAMEOVER.png");
     setUpGUI();
     connectSignalsToSlots();
     printRoomInfo();
@@ -27,7 +27,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setUpGUI()
 {
-    QImage image("Images/arrow.png");
+    QImage image("../MoreTestingAgain/Images/arrow.png");
     QPoint center = image.rect().center();
 
     QPixmap pixmap = QPixmap::fromImage(image);
@@ -148,7 +148,7 @@ void MainWindow::printRoomImage()
         questionMark->setY(0);
         questionMark->setSizeY(50);
         questionMark->setSizeX(50);
-        pixmap.load("Images/Question_Mark.png");
+        pixmap.load("../MoreTestingAgain/Images/Question_Mark.png");
         questionMark->setItemImage(pixmap);
         questionMarkSymbol = new QGraphicsObjectGameItem(questionMark);
         scene->addItem(questionMarkSymbol);
@@ -219,7 +219,9 @@ void MainWindow::itemClicked()
                             Room *newRoom = door->getRoom();
                             std::string newDirection = door->getDirection();
                             zorkgame.addNewRoom(newRoom, door->getAdjacentRoom() ,newDirection);
-                            ui->textBrowser->append(QString::fromStdString("New room unlocked: " + newRoom->getDescription() + " to the " + newDirection + " of " + door->getRoom()->getDescription()));
+                            ui->textBrowser->append(QString::fromStdString("New room unlocked: " + newRoom->getDescription() + " to the " + newDirection + " of " + door->getAdjacentRoom()->getDescription()));
+                            zorkgame.getPlayer()->removeItem(zorkgame.getPlayer()->getCurrentItem());
+                            showPlayerInventory();
                         }
                     }
                 }
@@ -235,8 +237,22 @@ void MainWindow::onInventoryItemClicked(QListWidgetItem *item)
 
 void MainWindow::onQuestionMarkClicked()
 {
-    if (zorkgame.getPlayer()->getCurrentItem() != NULL)
+    if (zorkgame.getPlayer()->getCurrentItem() != NULL) {
         ui->textBrowser->append(QString::fromStdString(zorkgame.getPlayer()->getCurrentItem()->getLongDescription()));
+        if(zorkgame.getPlayer()->getCurrentItem()->getIsGameOverItem() == true)
+            gameOver();
+    }
     else
         ui->textBrowser->append("You have no current item selected!");
+
+}
+
+
+void MainWindow::gameOver()
+{
+    removeItemsFromScene();
+    int width = ui->graphicsView->width();
+    int height = ui->graphicsView->height();
+    background = new QGraphicsPixmapItem(gameOverScreen.scaled(width, height, Qt::KeepAspectRatio));
+    scene->addItem(background);
 }

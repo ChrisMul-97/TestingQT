@@ -11,11 +11,6 @@ Room::~Room()
     {
         delete gameObjects[i];
     }
-    std::map<std::string, Room*>::iterator it;
-    for (it = exits.begin(); it != exits.end(); it++)
-    {
-        delete it->second;
-    }
 }
 
 void Room::setDescription(std::string description)

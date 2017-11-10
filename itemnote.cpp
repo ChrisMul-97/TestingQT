@@ -8,5 +8,6 @@ ItemNote::ItemNote(std::string description)
 
 bool ItemNote::checkInteraction(const GameObject *item)
 {
+    Q_UNUSED(item);
     return false;
 }

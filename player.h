@@ -14,6 +14,7 @@ public:
     Item *getCurrentItem();
     std::vector<Item*> getItems();
     std::string getItemNames();
+    void removeItem(Item *item);
 private:
     std::vector<Item*> inventory;
     Item *item = NULL;

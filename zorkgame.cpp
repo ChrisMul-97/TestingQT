@@ -26,11 +26,11 @@ void ZorkGame::createRooms()
     rooms.push_back(testRoomB);
     rooms.push_back(testRoomC);
     QPixmap pixmap;
-    pixmap.load("Images/ProofOfConcept.png");
+    pixmap.load("../MoreTestingAgain/Images/ProofOfConcept.png");
     testRoomA->setRoomImage(pixmap);
-    pixmap.load("Images/room2.png");
+    pixmap.load("../MoreTestingAgain/Images/room2.png");
     testRoomB->setRoomImage(pixmap);
-    pixmap.load("Images/room3.png");
+    pixmap.load("../MoreTestingAgain/Images/room3.png");
     testRoomC->setRoomImage(pixmap);
     ItemNote *note = new ItemNote("Note");
     note->setX(150);
@@ -38,16 +38,16 @@ void ZorkGame::createRooms()
     note->setSizeX(35);
     note->setSizeY(35);
     note->setLongDescription("It reads: 'Oh boy, it's the waking hours of the morning and I've yet to find a way out\nThis is what I've gathered from notes scattered around.\nMy name is Winston and I suffer from a chronic case of daily amensia.\nThis is most certainly not a good thing.\nI'm also locked in this house.\nAgain, not good. Not at all. When I fall asleep I'll surely not remember anything of this. Not good at all'");
-    pixmap.load("Images/paper.png");
+    pixmap.load("../MoreTestingAgain/Images/paper.png");
     note->setItemImage(pixmap);
 
     //testing doors and keys
     Room *testRoomD = new Room("The Great Outdoors");
-    pixmap.load("Images/outside.png");
+    pixmap.load("../MoreTestingAgain/Images/outside.png");
     testRoomD->setRoomImage(pixmap);
     ObjectDoor *door = new ObjectDoor(testRoomD);
     door->roomDetails(testRoomA, "north");
-    pixmap.load("Images/door.png");
+    pixmap.load("../MoreTestingAgain/Images/door.png");
     door->setItemImage(pixmap);
     door->setX(290);
     door->setY(35);
@@ -55,7 +55,7 @@ void ZorkGame::createRooms()
     door->setSizeY(160);
 
     Room *finalRoom = new Room("What was always yours");
-    pixmap.load("Images/space.jpeg");
+    pixmap.load("../MoreTestingAgain/Images/space.jpeg");
     finalRoom->setRoomImage(pixmap);
     finalRoom->setExit(testRoomD, "south");
     testRoomD->setExit(finalRoom,"north");
@@ -67,12 +67,13 @@ void ZorkGame::createRooms()
     secondNote->setSizeX(35);
     secondNote->setSizeY(35);
     secondNote->setLongDescription("It reads: 'I wouldn't believe a word out of any of these other notes. It's all lies.\nMy name is Larry and I have the world's best memory, I just haven't figured who stole it and why.'");
-    pixmap.load("Images/paper.png");
+    pixmap.load("../MoreTestingAgain/Images/paper.png");
     secondNote->setItemImage(pixmap);
 
     //room 3 items
     ItemKey *key = new ItemKey("Key", door);
-    pixmap.load("Images/sprite_key.jpg");
+    pixmap.load("../MoreTestingAgain/Images/sprite_key.jpg");
+    key->setLongDescription("A rusty old key");
     key->setItemImage(pixmap);
     key->setX(150);
     key->setY(230);
@@ -85,7 +86,7 @@ void ZorkGame::createRooms()
     moreNote->setSizeX(35);
     moreNote->setSizeY(35);
     moreNote->setLongDescription("It reads: 'Okay, what if Big Foot is real, and I'm his brother???'");
-    pixmap.load("Images/note2.png");
+    pixmap.load("../MoreTestingAgain/Images/note2.png");
     moreNote->setItemImage(pixmap);
 
     ItemNote *theoryNote = new ItemNote("Note #78");
@@ -119,7 +120,7 @@ void ZorkGame::createRooms()
     earthsLastDemand->setSizeX(35);
     earthsLastDemand->setSizeY(35);
     earthsLastDemand->setLongDescription("It reads: 'If you're reading this then humanity has failed.\nGo on take your prize, we could never stop you from taking it. Pepsiman, truly you have bested us.\nNow, go to the stars as we weep in fear.\nIt always was yours to take, we were foolish to try and stop you.\nMay God have mercy on our souls.'");
-    pixmap.load("Images/paper.png");
+    pixmap.load("../MoreTestingAgain/Images/paper.png");
     earthsLastDemand->setItemImage(pixmap);
 
     //Final Frontier items
@@ -129,7 +130,8 @@ void ZorkGame::createRooms()
     earthItself->setSizeX(200);
     earthItself->setSizeY(200);
     earthItself->setLongDescription("It screams hopelessly in your pocket; forever yours.");
-    pixmap.load("Images/earth.png");
+    earthItself->setIsGameOverItem(true);
+    pixmap.load("../MoreTestingAgain/Images/earth.png");
     earthItself->setItemImage(pixmap);
 
 

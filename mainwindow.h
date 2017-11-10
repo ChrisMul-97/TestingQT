@@ -45,6 +45,7 @@ private:
     bool firstRoomEntered = false;
     void showPlayerInventory();
     QPixmap gameOverScreen;
+    void gameOver();
 
 private slots:
     void clickedRight();
